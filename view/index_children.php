@@ -20,7 +20,7 @@
     // PAGINATION
 
     // Nombre d'enfant dans l'orphelinat
-    $sql_children = "SELECT COUNT(*) FROM child";
+    $sql_children = "SELECT COUNT(*) FROM child WHERE isDelete != true";
     $nbr = $pdo->query($sql_children);
     $childrenNbr = $nbr->fetch();
     $childrenNbr = $childrenNbr[0];
@@ -32,7 +32,7 @@
         // où le nombre d'enfant n'atteint pas 10.
         $currentPage = (int)$_GET["page"];
         $offset = ($currentPage * $nbrByPage) - $nbrByPage;
-        $sql = "SELECT * FROM child ORDER BY id_child ASC LIMIT $offset, $nbrByPage";
+        $sql = "SELECT * FROM child WHERE isDelete != true ORDER BY id_child ASC LIMIT $offset, $nbrByPage";
         $stmt = $pdo->query($sql);
         $children = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }else {
@@ -47,6 +47,7 @@
 ?>
 
 <h1 class="text-center">Liste des enfants</h1>
+<?php include_once "message.php" ?>
 
 <table class="table table-striped">
     <thead>
@@ -68,7 +69,9 @@
     </thead>
     <tbody>
         <?php 
+        if(isset($_GET["page"])){
             $table = "";
+            $p = $_GET["page"];
             foreach($children as $child){
                 $date = new DateTime($child["birthdate"]);
                 $table .= "<tr>";
@@ -77,11 +80,11 @@
                 $table .= "<td>" . dateToFrenchDate($date) ."</td>";
                 $table .= "<td>$child[origin]</td>";
                 $table .= "<td>$child[sex]</td>";
-                $table .= "<td><a href='../controller/delete_ctrl_children.php?id=$child[id_child]'><img src=''></a></td>";
+                $table .= "<td><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Supprimer un gosse'  href='../controller/delete_ctrl_children.php?id=$child[id_child]&page=$p'>💣</a><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Modifier un gosse' href='update_children.php?id=$child[id_child]&page=$p'>🧬</a></td>";
                 $table .= "</tr>";
             }
             echo $table;
-        
+        }
         ?>           
     </tbody>
 </table>

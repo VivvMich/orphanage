@@ -33,4 +33,8 @@ header {
   color: chartreuse;
 }
 
+.destroy-child {
+  text-decoration: none !important;
+}
+
 /*# sourceMappingURL=style.css.map */

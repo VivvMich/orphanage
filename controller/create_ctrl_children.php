@@ -1,5 +1,6 @@
 <?php
 include_once "../model/pdo.php";
+include_once "tools.php";
 
 // Empty ======>
 // 1 => '',
@@ -14,19 +15,13 @@ include_once "../model/pdo.php";
 if(!empty($_POST["first_name"]) && !empty($_POST["last_name"]) && !empty($_POST["birthdate"]) && !empty($_POST["origin"])) {
 
 try{
-    $sql = "INSERT INTO child (first_name, last_name, birthdate, origin, sex) VALUE (?,?,?,?,?)";
+    $sql = "INSERT INTO child (first_name, last_name, birthdate, origin, sex, isDelete) VALUE (?,?,?,?,?,?)";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$_POST["first_name"], $_POST["last_name"], $_POST["birthdate"], $_POST["origin"], $_POST["sex"] ]);
-    $message = "Enfant ajouté(e)";
-    header("Location:../view/create_children.php?message=$message&status=success");
-    exit;
+    $stmt->execute([$_POST["first_name"], $_POST["last_name"], $_POST["birthdate"], $_POST["origin"], $_POST["sex"], 0 ]);
+    sendMessage("Enfant ajouté(e)", "success", "../view/create_children.php");
 } catch(Exception $e){
-    $message = $e->getMessage();
-    header("Location:../view/create_children.php?message=$message&status=failed");
-    exit;
+    sendMessage($e->getMessage(), "failed", "../view/create_children.php");
 }
 }else {
-    $message = "Veuillez remplir correctement le formulaire";
-    header("Location:../view/create_children.php?message=$message&status=failed");
-    exit;
+    sendMessage("Veuillez remplir correctement le formulaire", "failed", "../view/create_children.php");
 }
