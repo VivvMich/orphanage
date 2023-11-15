@@ -1,4 +1,6 @@
 $header-height: 40vh
+
+
     
 body
     min-height: 100vh + $header-height
@@ -23,11 +25,25 @@ header
 #form
     width: 60%
 
+@mixin anim()
+    animation-duration: 7s
+    animation-iteration-count: none
+    animation-name: message
+    animation-fill-mode: forwards   
+
 .failed
     color: red
+    @include anim
 
 .success
     color: chartreuse
+    @include anim
+    
+@keyframes message 
+    0%
+        opacity: 1
+    100%
+        opacity: 0 
 
 .destroy-child
     text-decoration: none !important

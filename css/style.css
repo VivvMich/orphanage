@@ -27,12 +27,28 @@ header {
 
 .failed {
   color: red;
+  animation-duration: 7s;
+  animation-iteration-count: none;
+  animation-name: message;
+  animation-fill-mode: forwards;
 }
 
 .success {
   color: chartreuse;
+  animation-duration: 7s;
+  animation-iteration-count: none;
+  animation-name: message;
+  animation-fill-mode: forwards;
 }
 
+@keyframes message {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 .destroy-child {
   text-decoration: none !important;
 }

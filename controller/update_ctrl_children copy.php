@@ -11,8 +11,11 @@ if(!empty($_POST["first_name"]) && !empty($_POST["last_name"]) && !empty($_POST[
         updateData('child', $data);
         sendMessage("Altération réussi", "success", "../view/index_children.php", $_POST["page"]);
     }catch(Exception){
-        sendMessage($e->getMessage(), "failed", "../view/update_children.php?id=$_POST[id_child]");
+        sendMessage($e->getMessage(), "failed", "../view/update_children.php?id=$_POST[id_child]", $_POST["page"], true);
 
     }
     
+}else {
+    sendMessage("Veuillez remplir le formulaire correctement.", "failed", "../view/update_children.php?id=$_POST[id_child]", $_POST["page"], true);
+
 }

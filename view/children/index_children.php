@@ -1,9 +1,6 @@
 <?php
-    include_once "base.php";
-    include_once "../model/pdo.php";
-    // $sql = "SELECT * FROM child";
-    // $stmt = $pdo->query($sql);
-    // $children = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    include_once "../base.php";
+    include_once "../../model/pdo.php";
 
     ///////FONCTIONS ////////////
 
@@ -47,7 +44,7 @@
 ?>
 
 <h1 class="text-center">Liste des enfants</h1>
-<?php include_once "message.php" ?>
+<?php include_once "../message.php" ?>
 
 <table class="table table-striped">
     <thead>
@@ -58,13 +55,6 @@
             <th>Origine</th>
             <th>Sexe</th>
             <th>Options</th>
-                <!-- //Permet de récupérer le nom des colonnes de la table child
-                // $sql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'child' ORDER BY ORDINAL_POSITION";
-                // $stmt = $pdo->query($sql);
-                // $columns = $stmt->fetchAll(PDO::FETCH_NUM);
-                // foreach($columns as $column){
-                //     echo "<th>$column[0]</th>";
-                //} -->
         </tr>
     </thead>
     <tbody>
@@ -80,7 +70,7 @@
                 $table .= "<td>" . dateToFrenchDate($date) ."</td>";
                 $table .= "<td>$child[origin]</td>";
                 $table .= "<td>$child[sex]</td>";
-                $table .= "<td><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Supprimer un gosse'  href='../controller/delete_ctrl_children.php?id=$child[id_child]&page=$p'>💣</a><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Modifier un gosse' href='update_children.php?id=$child[id_child]&page=$p'>🧬</a></td>";
+                $table .= "<td><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Supprimer un gosse'  href='../../controller/delete_ctrl_children.php?id=$child[id_child]&page=$p'>💣</a><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Modifier un gosse' href='update_children.php?id=$child[id_child]&page=$p'>🧬</a></td>";
                 $table .= "</tr>";
             }
             echo $table;

@@ -1,10 +1,11 @@
+<?php $BASE = __DIR__; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href=" <?= $BASE . '/css/style.css' ?> ">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script defer src="../js/main.js"></script>
     <title>Orphelinat</title>
@@ -26,8 +27,17 @@
             Enfants
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" target="_blank" href="index_children.php">Liste des enfants</a></li>
-            <li><a class="dropdown-item" target="_blank" href="create_children.php">Ajouter un enfant</a></li>
+            <li><a class="dropdown-item" target="_blank" href="children/index_children.php">Liste des enfants</a></li>
+            <li><a class="dropdown-item" target="_blank" href="children/create_children.php">Ajouter un enfant</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Utilisateurs
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" target="_blank" href="users/index_users.php">Liste des utilisateurs</a></li>
+            <li><a class="dropdown-item" target="_blank" href="users/create_users.php">Ajouter un utilisateur</a></li>
           </ul>
         </li>
       </ul>
