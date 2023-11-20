@@ -10,9 +10,9 @@ if(isset($_GET['id']) && isset($_GET['page'])){
         $sql = "UPDATE child SET isDelete=? WHERE id_child=?";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([true, $id]);
-        sendMessage("Enfant Supprimé(e)", "success", "../view/index_children.php", $page);
+        sendMessage("Enfant Supprimé(e)", "success", "../view/children/index_children.php", $page);
     }catch(Exception $e){
-        sendMessage($e->getMessage(), "failed", "../view/index_children.php", $page);
+        sendMessage($e->getMessage(), "failed", "../view/children/index_children.php", $page);
     }
 
 }

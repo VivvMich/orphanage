@@ -18,10 +18,10 @@ try{
     $sql = "INSERT INTO child (first_name, last_name, birthdate, origin, sex, isDelete) VALUE (?,?,?,?,?,?)";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$_POST["first_name"], $_POST["last_name"], $_POST["birthdate"], $_POST["origin"], $_POST["sex"], 0 ]);
-    sendMessage("Enfant ajouté(e)", "success", "../view/create_children.php");
+    sendMessage("Enfant ajouté(e)", "success", "../view/children/create_children.php");
 } catch(Exception $e){
-    sendMessage($e->getMessage(), "failed", "../view/create_children.php");
+    sendMessage($e->getMessage(), "failed", "../view/children/create_children.php");
 }
 }else {
-    sendMessage("Veuillez remplir correctement le formulaire", "failed", "../view/create_children.php");
+    sendMessage("Veuillez remplir correctement le formulaire", "failed", "../view/children/create_children.php");
 }

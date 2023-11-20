@@ -1,7 +1,7 @@
 <?php
-    include_once "base.php";
-    include_once "../model/sql.php";
-    include_once "../controller/tools.php";
+    include_once "../base.php";
+    include_once "../../model/sql.php";
+    include_once "../../controller/tools.php";
 
     if (isset($_GET['id'])) {
         $child = selectAll("child", $_GET['id']);
@@ -12,9 +12,9 @@
 
 <h1 class="text-center">Modifier un enfant</h1>
 
-<?php include_once "message.php" ?>
+<?php include_once "../message.php" ?>
 
-<form id="form" class="mx-auto" action="../controller/update_ctrl_children.php" method="post">
+<form id="form" class="mx-auto" action="controller/update_ctrl_children.php" method="post">
 
 <label for="first_name">Prénom</label>
 <input class="form-control" type="text" name="first_name" id="" value="<?= $child['first_name'] ?>">

@@ -1,0 +1,31 @@
+
+const submit = document.getElementById('submit');
+
+submit.addEventListener('submit', function(e) {
+    // Empèche le comportement par defaut du bouton
+    // du formulaire c'est a dire le chargement vers une autre page.
+    e.preventDefault();
+
+    //nous allons injecter les données du formulaire dans un objet js appeler
+    // formData
+
+    // pour récupérer les valeur du formumlaire nous utilisons l'evenement
+    // e.target
+
+    const formData = new FormData(e.target);
+    
+    data = {
+        method: "POST",
+        body: formData,
+        headers: {
+            "Accept": "application/json"
+        }
+    }
+    
+
+    fetch("controller/ajax.php", data)
+    .then(response => console.log(response));
+    
+
+
+})

@@ -66,7 +66,7 @@ function getColumn(string $tableName) : array{
     $stmt = $pdo->query($sql);
     $columns = $stmt->fetchAll(PDO::FETCH_NUM);
     foreach($columns as $column){
-        if ( $column[0] != "isDelete"){
+        if ( $column[0] != "isDelete" && $column[0] != "user"){
             $array[] = $column[0];
         }
 

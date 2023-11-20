@@ -49,10 +49,10 @@ if($resultNumber[0] < 100){
         $date = new DateTime();
         $date->setTimestamp($randAge);
 
-        $sql = "INSERT INTO child (first_name, last_name, birthdate, origin, sex) VALUES (?,?,?,?,?)";
+        $sql = "INSERT INTO child (first_name, last_name, birthdate, origin, sex, isDelete) VALUES (?,?,?,?,?,?)";
         try{
             $stmt = $pdo->prepare($sql);
-            $stmt->execute([$firstName, $lastName, $date->format("Y-m-d"), $origin, $sex]);
+            $stmt->execute([$firstName, $lastName, $date->format("Y-m-d"), $origin, $sex, 0]);
             echo "Tout s'est bien passé, merci de votre patience.";
         }catch(Exception $e){
             echo $e->getMessage();
@@ -63,7 +63,7 @@ if($resultNumber[0] < 100){
     echo "Quota atteint !";
 }
 
-
+//SELECT child.*, CONCAT(user.first_name, " ", user.last_name) FROM child INNER JOIN user ON child.id_user = user.id_user; 
 
 
 

@@ -6,7 +6,7 @@
 
 <?php include_once "../message.php" ?>
 
-<form id="form" class="mx-auto" action="../../controller/create_ctrl_children.php" method="post">
+<form id="form" class="mx-auto" action="controller/create_ctrl_children.php" method="post">
 
 <label for="first_name">Prénom</label>
 <input class="form-control" type="text" name="first_name" id="">

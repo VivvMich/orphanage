@@ -3,16 +3,7 @@
     include_once "../../model/pdo.php";
 
     ///////FONCTIONS ////////////
-
-    function dateToFrenchDate(DateTime $date) : String {
-        $formatter = new IntlDateFormatter("fr_FR", IntlDateFormatter::LONG );
-        $formatter->setPattern('d MMMM Y');
-        return $formatter->format($date) . "( " .getAgeFromDate($date) . " ans )";
-    }
-
-    function getAgeFromDate(DateTime $date) : int {
-        return ((int)date_diff($date, new DateTime('now'))->y);
-    }
+    include_once "../../controller/tools.php";
 
     // PAGINATION
 
@@ -70,7 +61,7 @@
                 $table .= "<td>" . dateToFrenchDate($date) ."</td>";
                 $table .= "<td>$child[origin]</td>";
                 $table .= "<td>$child[sex]</td>";
-                $table .= "<td><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Supprimer un gosse'  href='../../controller/delete_ctrl_children.php?id=$child[id_child]&page=$p'>💣</a><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Modifier un gosse' href='update_children.php?id=$child[id_child]&page=$p'>🧬</a></td>";
+                $table .= "<td><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Information sur l'enfant' href='view/children/read_children.php?id=$child[id_child]&page=$p'>👁️</a><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Supprimer un gosse'  href='controller/delete_ctrl_children.php?id=$child[id_child]&page=$p'>💣</a><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Modifier un gosse' href='view/children/update_children.php?id=$child[id_child]&page=$p'>🧬</a></td>";
                 $table .= "</tr>";
             }
             echo $table;
@@ -81,19 +72,19 @@
 
 <nav aria-label="Page navigation children">
   <ul class="pagination justify-content-center">
-  <li class="page-item"><a class="page-link" href="index_children.php?page=1"><<</a></li>
+  <li class="page-item"><a class="page-link" href="view/children/index_children.php?page=1"><<</a></li>
     <?php 
         if(isset($_GET["page"])){
             $currentPage = (int)$_GET["page"];
 
             for($i = 1; $i <= $page; $i++){
                 if( $i <= $currentPage + 2 && $i >= $currentPage - 2 ){
-                    echo "<li class='page-item'><a class='page-link' href='index_children.php?page=$i'>$i</a></li>";
+                    echo "<li class='page-item'><a class='page-link' href='view/children/index_children.php?page=$i'>$i</a></li>";
                 }
             }
         }
     ?>
-      <li class="page-item"><a class="page-link" href="index_children.php?page=<?= $page ?>">>></a></li>
+      <li class="page-item"><a class="page-link" href="view/children/index_children.php?page=<?= $page ?>">>></a></li>
   </ul>
 </nav>
 

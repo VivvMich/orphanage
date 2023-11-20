@@ -35,3 +35,14 @@ function createCheckButton(string $collumnName, string $dBValue, array $values) 
     }
     return $result;
 }
+
+
+function dateToFrenchDate(DateTime $date) : String {
+    $formatter = new IntlDateFormatter("fr_FR", IntlDateFormatter::LONG );
+    $formatter->setPattern('d MMMM Y');
+    return $formatter->format($date) . "( " .getAgeFromDate($date) . " ans )";
+}
+
+function getAgeFromDate(DateTime $date) : int {
+    return ((int)date_diff($date, new DateTime('now'))->y);
+}
