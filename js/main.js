@@ -1,5 +1,7 @@
 
 const submit = document.getElementById('submit');
+const message = document.getElementById('message');
+const tutor = document.getElementById('tutor');
 
 submit.addEventListener('submit', function(e) {
     // Empèche le comportement par defaut du bouton
@@ -13,6 +15,8 @@ submit.addEventListener('submit', function(e) {
     // e.target
 
     const formData = new FormData(e.target);
+
+    console.log(formData);
     
     data = {
         method: "POST",
@@ -24,7 +28,25 @@ submit.addEventListener('submit', function(e) {
     
 
     fetch("controller/ajax.php", data)
-    .then(response => console.log(response));
+    .then(response => response.json())
+    .then(responseData => {
+        console.log(responseData.message);
+
+        // MESSAGE
+        message.classList.remove("failed");
+        message.classList.remove("success");
+        void message.offsetWidth; 
+        message.classList.add(responseData.status);
+        message.innerHTML = responseData.message;
+
+        // MODIFICATION DU NOM
+
+        if (typeof(responseData.tutor) != "undefined"){
+            tutor.innerHTML = responseData.tutor;
+        }
+        
+    
+    })
     
 
 

@@ -14,6 +14,8 @@ if (isset($_GET['id']) && isset($_GET['page'])) {
 
     <h1 class="text-center"><?= "$child[first_name] $child[last_name]" ?></h1>
 
+    <h2 class="text-center" id='message'></h2>
+
     <div class="container">
         <div class="row">
             <div class="col-6">
@@ -33,13 +35,13 @@ if (isset($_GET['id']) && isset($_GET['page'])) {
                     <li class="list-group-item text-center">Date de naissance : <?= dateToFrenchDate($date)  ?></li>
                     <li class="list-group-item text-center">Sexe : <?= $child["sex"] == "homme" ? "<span class='h4'>♂</span>" : "<span class='h4'>♀</span>" ?> </li>
                     <li class="list-group-item text-center">Origine : <?= $child['origin'] ?></li>
-                    <li class="list-group-item text-center" >Tuteur actuel : <?= $child['tutor'] ?></li>
+                    <li  class="list-group-item text-center" >Tuteur actuel : <span id="tutor"><?= $child['tutor'] ?></span></li>
                 </ul>
 
                 <!-- AJAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
-                <form id="submit" action="">
-                <select class="form-select my-3" >
-                    <option selected>Selectionner un nouveau tuteur</option>
+                <form id="submit">
+                <select class="form-select my-3" name="tutor" >
+                    <option value="error" selected>Selectionner un nouveau tuteur</option>
                     <?php 
                     $sql = "SELECT id_user, first_name, last_name FROM user";
                     $stmt = $pdo->query($sql);
@@ -49,6 +51,7 @@ if (isset($_GET['id']) && isset($_GET['page'])) {
                     }
                     
                     ?>
+                        <input type="hidden" name="child" value="<?= $child["id_child"] ?>">
                         <input class="btn btn-warning my-3 mx-auto" type="submit" value="Changer de tuteur" >
 
 

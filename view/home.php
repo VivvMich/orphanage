@@ -1,8 +1,17 @@
 <?php
     include_once "base.php";
+    session_start();
 ?>
 
 <h1 class="text-center">Orphelinat</h1>
+<?php 
+
+    if ( isset($_SESSION['name'])) {
+        echo "<h2 class='text-center text-primary' >Bonjour $_SESSION[name] !</h2>";
+    }
+
+
+?>
 
 <div id="who">
 
