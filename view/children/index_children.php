@@ -1,11 +1,14 @@
 <?php
+    include_once "../../controller/role.php";
     include_once "../base.php";
     include_once "../../model/pdo.php";
+
 
     ///////FONCTIONS ////////////
     include_once "../../controller/tools.php";
 
-    // PAGINATION
+
+    if($_SESSION['role'] >= Role::CUSTOMER->value ) {
 
     // Nombre d'enfant dans l'orphelinat
     $sql_children = "SELECT COUNT(*) FROM child WHERE isDelete != true";
@@ -53,15 +56,21 @@
         if(isset($_GET["page"])){
             $table = "";
             $p = $_GET["page"];
+            $token = $_SESSION['token'];
             foreach($children as $child){
                 $date = new DateTime($child["birthdate"]);
                 $table .= "<tr>";
-                $table .= "<td>$child[first_name]</td>";
-                $table .= "<td>$child[last_name]</td>";
+                $table .= "<td>" . htmlentities($child['first_name']) . "</td>";
+                $table .= "<td>" . htmlentities($child['last_name']) . "</td>";
                 $table .= "<td>" . dateToFrenchDate($date) ."</td>";
-                $table .= "<td>$child[origin]</td>";
+                $table .= "<td>" . htmlentities($child['origin']) ."</td>";
                 $table .= "<td>$child[sex]</td>";
-                $table .= "<td><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Information sur l'enfant' href='view/children/read_children.php?id=$child[id_child]&page=$p'>👁️</a><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Supprimer un gosse'  href='controller/delete_ctrl_children.php?id=$child[id_child]&page=$p'>💣</a><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Modifier un gosse' href='view/children/update_children.php?id=$child[id_child]&page=$p'>🧬</a></td>";
+                if ($_SESSION['role'] >= Role::SECRETARY->value){
+                    $table .= "<td><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Information sur l'enfant' href='view/children/read_children.php?id=$child[id_child]&page=$p'>👁️</a><a class='destroy-child bomb' data-bs-toggle='modal'  data-bs-target='#validation_delete'
+                    data-link='controller/delete_ctrl_children.php?id=$child[id_child]&page=$p&token=$token' href=''>💣</a><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Modifier un gosse' href='view/children/update_children.php?id=$child[id_child]&page=$p'>🧬</a></td>";
+                }else {
+                    $table .= "<td><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Information sur l'enfant' href='view/children/read_children.php?id=$child[id_child]&page=$p'>👁️</a></td>";
+                }
                 $table .= "</tr>";
             }
             echo $table;
@@ -88,6 +97,29 @@
   </ul>
 </nav>
 
+<div class="modal fade" id="validation_delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Elimination du sujet</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Voulez-vous supprimez cet enfant ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <a class="btn btn-primary" id="delete" >SUPPRIMER</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 </body>
 </html>
+
+<?php  } else {
+    sendMessage("Page non autorisé", "failed", "../home.php", null);
+} ?>

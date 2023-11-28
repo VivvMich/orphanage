@@ -1,6 +1,7 @@
 <?php 
 include_once '../model/sql.php';
 include_once "tools.php";
+session_start();
 
 
 

@@ -13,6 +13,10 @@
 </head>
 <body>
 
+<?php 
+  session_start();
+
+?>
 <header></header>
     
 <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
@@ -21,6 +25,7 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    <?php if( isset($_SESSION['role']) && $_SESSION['role'] >= Role::CUSTOMER->value) {?>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item dropdown">
@@ -28,19 +33,33 @@
             Enfants
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" target="_blank" href="view/children/index_children.php">Liste des enfants</a></li>
-            <li><a class="dropdown-item" target="_blank" href="view/children/create_children.php">Ajouter un enfant</a></li>
+            <li><a class="dropdown-item"  href="view/children/index_children.php">Liste des enfants</a></li>
+            <?php if ($_SESSION['role'] >= Role::SECRETARY->value) {?>
+              <li><a class="dropdown-item"  href="view/children/create_children.php">Ajouter un enfant</a></li>
+            <?php }?>
           </ul>
         </li>
+        <?php if ($_SESSION['role'] == Role::ADMIN->value) {?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Utilisateurs
-          </a>
+          </a> 
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" target="_blank" href="view/users/index_users.php">Liste des utilisateurs</a></li>
-            <li><a class="dropdown-item" target="_blank" href="view/users/create_users.php">Ajouter un utilisateur</a></li>
+            <li><a class="dropdown-item"  href="view/users/index_users.php">Liste des utilisateurs</a></li>
+            <li><a class="dropdown-item"  href="view/users/create_users.php">Ajouter un utilisateur</a></li>
           </ul>
         </li>
+          <?php }?>
+        <?php }?>
+        <?php if ( !isset($_SESSION['name']) ){?>
+        <li class="nav-item">
+        <a class="nav-link" href="view/users/login.php">Connexion</a>
+      </li>
+      <?php }else { ?>
+        <li class="nav-item">
+        <a class="nav-link" href="controller/logout.php">Déconnexion</a>
+      </li>
+      <?php } ?>
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

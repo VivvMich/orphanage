@@ -1,6 +1,7 @@
 <?php
 include_once "../model/pdo.php";
 include_once "tools.php";
+session_start();
 
 // Empty ======>
 // 1 => '',

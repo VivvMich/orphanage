@@ -2,6 +2,7 @@
 
 include_once "../model/pdo.php";
 include_once "tools.php";
+session_start();
 
 if(isset($_GET['id']) && isset($_GET['page'])){
     try{

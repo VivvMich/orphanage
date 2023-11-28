@@ -1,6 +1,7 @@
 <?php 
 
 include "../model/pdo.php";
+session_start();
 
 if (isset($_POST)) {
 

@@ -1,6 +1,10 @@
 <?php
+    include_once "../../controller/role.php";
     include_once "../base.php";
+
+    if($_SESSION['role'] >= Role::SECRETARY->value ) {
 ?>
+
 
 <h1 class="text-center">Ajouter un enfant</h1>
 
@@ -38,3 +42,6 @@
 
 </body>
 </html>
+<?php  } else {
+    sendMessage("Page non autorisé", "failed", "../home.php", null);
+} ?>

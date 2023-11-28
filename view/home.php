@@ -1,11 +1,13 @@
 <?php
+    include_once "../controller/role.php";
     include_once "base.php";
-    session_start();
+
 ?>
 
 <h1 class="text-center">Orphelinat</h1>
-<?php 
 
+<?php 
+    include  "message.php";
     if ( isset($_SESSION['name'])) {
         echo "<h2 class='text-center text-primary' >Bonjour $_SESSION[name] !</h2>";
     }

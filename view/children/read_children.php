@@ -1,7 +1,10 @@
 <?php
+    include_once "../../controller/role.php";
     include_once "../base.php";
     include_once "../../model/pdo.php";
     include_once "../../controller/tools.php";
+
+    if($_SESSION['role'] >= Role::CUSTOMER->value ) {
 
 if (isset($_GET['id']) && isset($_GET['page'])) {
     $id = $_GET['id'];
@@ -34,11 +37,12 @@ if (isset($_GET['id']) && isset($_GET['page'])) {
                 <?php $date = new DateTime($child["birthdate"]) ?>
                     <li class="list-group-item text-center">Date de naissance : <?= dateToFrenchDate($date)  ?></li>
                     <li class="list-group-item text-center">Sexe : <?= $child["sex"] == "homme" ? "<span class='h4'>♂</span>" : "<span class='h4'>♀</span>" ?> </li>
-                    <li class="list-group-item text-center">Origine : <?= $child['origin'] ?></li>
+                    <li class="list-group-item text-center">Origine : <?= htmlentities($child['origin']) ?></li>
                     <li  class="list-group-item text-center" >Tuteur actuel : <span id="tutor"><?= $child['tutor'] ?></span></li>
                 </ul>
 
                 <!-- AJAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+                <?php if($_SESSION['role'] >= Role::SECRETARY->value ) { ?>
                 <form id="submit">
                 <select class="form-select my-3" name="tutor" >
                     <option value="error" selected>Selectionner un nouveau tuteur</option>
@@ -51,18 +55,18 @@ if (isset($_GET['id']) && isset($_GET['page'])) {
                     }
                     
                     ?>
-                        <input type="hidden" name="child" value="<?= $child["id_child"] ?>">
+                        <input type="hidden" name="child" value="<?= htmlentities($child["id_child"]) ?>">
                         <input class="btn btn-warning my-3 mx-auto" type="submit" value="Changer de tuteur" >
 
 
                 </select>
                 </form>
-
                 <div class="text-center">
                     <?php 
                         echo "<a class='btn btn-primary my-4' href='view/children/update_children.php?id=$child[id_child]&page=$_GET[page]'>Modifier $child[first_name] $child[last_name]</a>";
                     ?>
                 </div>
+                <?php }?>
             </div>
         </div>
     </div>
@@ -75,3 +79,7 @@ if (isset($_GET['id']) && isset($_GET['page'])) {
 
 </body>
 </html>
+
+<?php  } else {
+    sendMessage("Page non autorisé", "failed", "../home.php", null);
+} ?>

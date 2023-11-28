@@ -1,5 +1,7 @@
 <?php
+    include_once "../../controller/role.php";
     include_once "../base.php";
+
 ?>
 
 <h1 class="text-center">Ajouter un tortionaire</h1>

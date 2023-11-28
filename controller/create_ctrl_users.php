@@ -1,6 +1,7 @@
 <?php
 include_once "../model/pdo.php";
 include_once "tools.php";
+session_start();
 
 if(!empty($_POST["first_name"]) && 
 !empty($_POST["last_name"]) && 
@@ -16,9 +17,9 @@ try{
     //Attaque en brute force: on test chaque combinaison tres vite.
     //Attaque au dictionnaire: c'est une liste qui englobe les mots de passe les plus connu ou les moins sécurisé.
     $psw = password_hash($_POST["password"], PASSWORD_ARGON2I);
-    $sql = "INSERT INTO user (first_name, last_name, street_name, city, zip_code, role, password, mail) VALUE (?,?,?,?,?,?,?,?)";
+    $sql = "INSERT INTO user (first_name, last_name, street_name, city, zip_code, role, password, mail, isDelete) VALUE (?,?,?,?,?,?,?,?,?)";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$_POST["first_name"], $_POST["last_name"], $_POST["street_name"], $_POST["city"], $_POST["zip_code"], $_POST["role"], $psw, $_POST["mail"] ]);
+    $stmt->execute([$_POST["first_name"], $_POST["last_name"], $_POST["street_name"], $_POST["city"], $_POST["zip_code"], $_POST["role"], $psw, $_POST["mail"],0]);
     sendMessage("Utilisateur ajouté(e)", "success", "../view/users/create_users.php");
 } catch(Exception $e){
     sendMessage($e->getMessage(), "failed", "../view/users/create_users.php");

@@ -2,6 +2,8 @@
     include_once "../base.php";
     include_once "../../model/pdo.php";
     include_once "../../controller/tools.php";
+    include_once "../../controller/role.php";
+
 ?>
 
 <h1 class="text-center">Connexion</h1>
@@ -31,9 +33,9 @@
         if( $user ) {
             // Compte existe
             if(password_verify($_POST['psw'], $user['password'])){
-                session_start();
                 $_SESSION["name"] = $user['first_name'] . " " . $user['last_name'];
                 $_SESSION["role"] = $user['role'];
+                $_SESSION["token"] = bin2hex(random_bytes(16));
                 header('Location:../home.php');
             }else {
                 sendMessage("Mot de passe incorrecte.", "failed", "login.php");
