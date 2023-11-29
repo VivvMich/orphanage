@@ -62,7 +62,7 @@
                 $table .= "<td>" . htmlentities($user['last_name']) . "</td>";
                 $table .= "<td>" . $roleArray[$user['role']] ."</td>";
                     $table .= "<td><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Information sur l'utilisateur' href='view/users/read_users.php?id=$user[id_user]&page=$p'>👁️</a><a class='destroy-child bomb' data-bs-toggle='modal'  data-bs-target='#validation_delete'
-                    data-link='controller/delete_ctrl_users.php?id=$user[id_user]&page=$p&token=$token' href=''>💣</a><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Modifier un utilisateur' href='view/users/update_users.php?id=$user[id_user]&page=$p'>🧬</a></td>";
+                    data-link='controller/delete_ctrl_users.php?id=$user[id_user]&page=$p&token=$token' href=''>💣</a><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Modifier un utilisateur' href='view/users/update_users.php?id=$user[id_user]&page=$p'>🧬</a><a class='destroy-child' data-toggle='tooltip' data-placement='top' title='Modifier un utilisateur' href='view/users/update_users_password.php?id=$user[id_user]&page=$p'>🔒</a></td>";
                 $table .= "</tr>";
             }
             echo $table;

@@ -8,7 +8,7 @@
 
 if (isset($_GET['id']) && isset($_GET['page'])) {
     $id = $_GET['id'];
-    $sql ="SELECT child.*, CONCAT(user.first_name, ' ', user.last_name) AS tutor FROM child INNER JOIN user ON child.user = user.id_user WHERE id_child=$id";
+    $sql ="SELECT child.*, CONCAT(user.first_name, ' ', user.last_name) AS tutor FROM child LEFT JOIN user ON child.user = user.id_user WHERE id_child=$id ";
 
     $stmt = $pdo->query($sql);
     $child = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -38,7 +38,7 @@ if (isset($_GET['id']) && isset($_GET['page'])) {
                     <li class="list-group-item text-center">Date de naissance : <?= dateToFrenchDate($date)  ?></li>
                     <li class="list-group-item text-center">Sexe : <?= $child["sex"] == "homme" ? "<span class='h4'>♂</span>" : "<span class='h4'>♀</span>" ?> </li>
                     <li class="list-group-item text-center">Origine : <?= htmlentities($child['origin']) ?></li>
-                    <li  class="list-group-item text-center" >Tuteur actuel : <span id="tutor"><?= $child['tutor'] ?></span></li>
+                    <li  class="list-group-item text-center" >Tuteur actuel : <span id="tutor"><?= $child['tutor'] == null ? "Aucun" :  $child['tutor']?></span></li>
                 </ul>
 
                 <!-- AJAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->

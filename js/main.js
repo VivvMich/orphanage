@@ -67,3 +67,24 @@ for (link of bombs) {
     })
 }
 
+
+// AJAX MOT DE PASSE
+
+const formPsw = document.getElementById('form_psw');
+const messagePsw = document.getElementById('message_psw');
+
+formPsw.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formDataPsw = new FormData(e.target);
+
+    fetch('controller/update_ctrl_users_password.php', {
+        body: formDataPsw,
+        method: "POST"
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        messagePsw.innerHTML = `<h2 class="${data.status} text-center">${data.message}</h2>`
+    })
+})
